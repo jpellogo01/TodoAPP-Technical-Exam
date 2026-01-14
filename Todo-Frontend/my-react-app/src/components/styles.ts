@@ -93,7 +93,7 @@ export const styles: Record<string, SxProps<Theme>> = {
 
   leftPart: {
     width: "15%",
-    borderRadius: "60px 0 0 60px",
+    borderRadius: "30px 0 0 30px",
     backgroundSize: "cover",
     backgroundPosition: "center",
     display: "flex",

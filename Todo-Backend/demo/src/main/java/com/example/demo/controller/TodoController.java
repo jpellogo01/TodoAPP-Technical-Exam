@@ -17,19 +17,19 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    // Get all Todos
+
     @GetMapping
     public List<Todo> getAllTodos() {
         return todoService.getAllTodos();
     }
 
-    // Get Todo by ID
+
     @GetMapping("/{id}")
     public Todo getTodo(@PathVariable Long id) {
         return todoService.getTodoById(id);
     }
 
-    // Create Todo
+
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo) {
         return todoService.createTodo(todo);
@@ -50,7 +50,7 @@ public class TodoController {
     }
 
 
-    // Delete Todo
+
     @DeleteMapping("/{id}")
     public void deleteTodo(@PathVariable Long id) {
         todoService.deleteTodo(id);

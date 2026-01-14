@@ -19,19 +19,18 @@ public class TaskService {
         this.todoRepository = todoRepository;
     }
 
-    // Get all tasks for a specific Todo
+
     public List<Task> getTasksByTodoId(Long todoId) {
         Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
         return todo.getTasks();
     }
 
-    // Add a task to a specific Todo
     public Task addTaskToTodo(Long todoId, Task task) {
         Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
         task.setTodo(todo);
-        todo.getTasks().add(task);
+//        todo.getTasks().add(task);
         todoRepository.save(todo);
         return task;
     }
@@ -48,7 +47,6 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    // Delete a task
     public void deleteTask(Long taskId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));

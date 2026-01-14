@@ -16,18 +16,18 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    // Get all Todos
+
     public List<Todo> getAllTodos() {
         return todoRepository.findAll();
     }
 
-    // Get single Todo by ID
+
     public Todo getTodoById(Long id) {
         return todoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
     }
 
-    // Create Todo
+
     public Todo createTodo(Todo todo) {
         if (todo.getTasks() != null) {
             for (Task task : todo.getTasks()) {
@@ -37,11 +37,11 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    // Update Todo
+
     public Todo updateTodo(Long id, Todo todoDetails) {
         Todo todo = getTodoById(id);
 
-        // Update title and status
+
         todo.setTitle(todoDetails.getTitle());
         todo.setStatus(todoDetails.getStatus());
 

@@ -1,6 +1,9 @@
 package com.example.demo.config;
 
+import com.example.demo.model.TaskStatus;
+import com.example.demo.model.Todo;
 import com.example.demo.model.User;
+import com.example.demo.repository.TodoRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,10 +16,12 @@ public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TodoRepository todoRepository;
 
-    public DataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, TodoRepository todoRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.todoRepository = todoRepository;
     }
 
     @Override
@@ -33,6 +38,15 @@ public class DataInitializer implements CommandLineRunner {
             userRepository.saveAll(List.of(admin, user));
 
             System.out.println("Preloaded users: admin, user");
+        }
+        if (todoRepository.count() == 0) {
+            Todo todo = new Todo();
+            todo.setTitle("To do list title");
+            todo.setStatus(TaskStatus.PENDING);
+
+            todoRepository.save(todo);
+
+            System.out.println("Preloaded Todo: To do list title");
         }
     }
 }

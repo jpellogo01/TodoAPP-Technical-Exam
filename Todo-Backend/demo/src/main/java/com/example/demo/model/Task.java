@@ -17,7 +17,7 @@ public class Task {
 
     @Lob
     @Column(columnDefinition = "TEXT")
-    private String image; // optional, can be null
+    private String image; 
 
     @ManyToOne
     @JoinColumn(name = "todo_id")
@@ -32,7 +32,7 @@ public class Task {
         this.image = image;
     }
 
-    // Getters & Setters
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
