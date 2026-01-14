@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .cors(cors -> {}) // handled in WebConfig
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/register").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginProcessingUrl("/login")
