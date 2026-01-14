@@ -17,31 +17,42 @@ public class TodoController {
         this.todoService = todoService;
     }
 
+    // Get all Todos
     @GetMapping
-    public ResponseEntity<List<Todo>> getAllTodos() {
-        return ResponseEntity.ok(todoService.getAllTodos());
+    public List<Todo> getAllTodos() {
+        return todoService.getAllTodos();
     }
 
+    // Get Todo by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Todo> getTodoById(@PathVariable Long id) {
-        return ResponseEntity.ok(todoService.getTodoById(id));
+    public Todo getTodo(@PathVariable Long id) {
+        return todoService.getTodoById(id);
     }
 
+    // Create Todo
     @PostMapping
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
-        return ResponseEntity.ok(todoService.createTodo(todo));
+    public Todo createTodo(@RequestBody Todo todo) {
+        return todoService.createTodo(todo);
     }
+
+//    @PutMapping("/{id}")
+//    public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
+//        return todoService.updateTodo(id, todo);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(
             @PathVariable Long id,
-            @RequestBody Todo todo) {
-        return ResponseEntity.ok(todoService.updateTodo(id, todo));
+            @RequestBody Todo todoRequest
+    ) {
+        Todo updatedTodo = todoService.updateTodo(id, todoRequest);
+        return ResponseEntity.ok(updatedTodo);
     }
 
+
+    // Delete Todo
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+    public void deleteTodo(@PathVariable Long id) {
         todoService.deleteTodo(id);
-        return ResponseEntity.noContent().build();
     }
 }

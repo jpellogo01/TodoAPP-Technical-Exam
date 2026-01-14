@@ -13,33 +13,37 @@ public class Task {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private TodoStatus status;
+    private TaskStatus status;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String image; // optional, can be null
 
     @ManyToOne
     @JoinColumn(name = "todo_id")
     @JsonBackReference
     private Todo todo;
 
-
-
-    // Constructors
     public Task() {}
 
-    public Task(String description, TodoStatus status, Todo todo) {
+    public Task(String description, TaskStatus status, String image) {
         this.description = description;
         this.status = status;
-        this.todo = todo;
+        this.image = image;
     }
 
-    // Getters and setters
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public TodoStatus getStatus() { return status; }
-    public void setStatus(TodoStatus status) { this.status = status; }
+    public TaskStatus getStatus() { return status; }
+    public void setStatus(TaskStatus status) { this.status = status; }
+
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 
     public Todo getTodo() { return todo; }
     public void setTodo(Todo todo) { this.todo = todo; }
