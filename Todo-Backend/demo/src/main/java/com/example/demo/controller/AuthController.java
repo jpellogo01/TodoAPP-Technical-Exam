@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthController {
 
-    // Hardcoded credentials
     private final String USERNAME = "user";
     private final String PASSWORD = "password";
 
@@ -18,14 +17,13 @@ public class AuthController {
 
         if (USERNAME.equals(username) && PASSWORD.equals(password)) {
             session.setAttribute("USER", username);
-            session.setMaxInactiveInterval(24 * 60 * 60); // 1 day in seconds
+            session.setMaxInactiveInterval(24 * 60 * 60);
             return "Login successful";
         } else {
             return "Login failed";
         }
     }
 
-    // Check if logged in
     @GetMapping("/check")
     public String check(HttpSession session) {
         Object user = session.getAttribute("USER");
@@ -36,7 +34,6 @@ public class AuthController {
         }
     }
 
-    // Logout endpoint
     @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
