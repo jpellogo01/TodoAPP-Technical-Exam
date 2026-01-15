@@ -16,7 +16,6 @@ export const TodoApp: React.FC = () => {
         bgcolor: "#f8f3f3",
       }}
     >
-      {/* SVG Wave Background */}
       <Box
         sx={{
           position: "absolute",
@@ -50,7 +49,6 @@ export const TodoApp: React.FC = () => {
             transform="translate(-100, 1150)"
           />
 
-          {/* Small wave at top */}
           <path
             d="M0,650 C250,600 500,700 750,600 C1000,500 1250,650 1500,600 L1500,800 L0,800 Z"
             fill="#f0ecfa"
@@ -60,7 +58,6 @@ export const TodoApp: React.FC = () => {
         </svg>
       </Box>
 
-      {/* Content */}
       <Box sx={{ position: "relative", zIndex: 1 }}>
         <TodoItem />
       </Box>

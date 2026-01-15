@@ -119,7 +119,15 @@ export const styles: Record<string, SxProps<Theme>> = {
   title: {
     fontSize: 16,
   },
-
+ editLink: {
+    textDecoration: "underline",
+    cursor: "pointer",
+    color: "#B6A08B",
+    fontWeight: 500,
+    "&:hover": {
+      opacity: 0.8,
+    },
+  },
   titleInput: {
     fontSize: 16,
     maxWidth: 300,

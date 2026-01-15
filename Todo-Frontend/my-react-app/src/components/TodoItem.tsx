@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Box, Typography, IconButton, Button, TextField } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import ImageIcon from "@mui/icons-material/Image";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {styles} from "./styles"
+import { styles } from "./styles"
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+
 
 interface TaskType {
     id: number;
@@ -28,7 +31,13 @@ export const TodoItem: React.FC = () => {
     const [originalTodo, setOriginalTodo] = useState<TodoType | null>(null);
     const [editTitle, setEditTitle] = useState("");
     const [newTaskDescription, setNewTaskDescription] = useState("");
+    const [newTaskImage, setNewTaskImage] = useState<string | null>(null);
     const [nextId, setNextId] = useState(0);
+    const [imageAnchorEl, setImageAnchorEl] = useState<HTMLElement | null>(null);
+    const [activeTaskId, setActiveTaskId] = useState<number | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const isImageMenuOpen = Boolean(imageAnchorEl);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -111,6 +120,7 @@ export const TodoItem: React.FC = () => {
         setOriginalTodo(todo);
         setEditTitle(todo?.title || "To do list title");
         setNewTaskDescription("");
+        setNewTaskImage(null);
     };
 
     const handleSave = async () => {
@@ -158,6 +168,7 @@ export const TodoItem: React.FC = () => {
         setTodo(originalTodo);
         setEditTitle("");
         setNewTaskDescription("");
+        setNewTaskImage(null);
     };
 
     const handleTitleChange = async (value: string) => {
@@ -186,50 +197,173 @@ export const TodoItem: React.FC = () => {
                 }
                 : null
         );
-        try {
-            await fetch(`http://localhost:8080/api/v1/tasks/${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ description: value, status: "PENDING" }),
-            });
-        } catch (error) {
-            console.error("Error updating task:", error);
+        const task = todo?.tasks.find(t => t.id === id);
+        if (task) {
+            try {
+                await fetch(`http://localhost:8080/api/v1/tasks/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ ...task, description: value }),
+                });
+            } catch (error) {
+                console.error("Error updating task:", error);
+            }
         }
     };
 
-    const handleImageClick = (id: number) => {
-        setTodo((prev) =>
-            prev
-                ? {
-                    ...prev,
-                    tasks: prev.tasks.map((task) =>
-                        task.id === id ? { ...task, image: undefined } : task
-                    ),
-                }
-                : null
-        );
+    const handleImageClick = (
+        event: React.MouseEvent<HTMLElement>,
+        id: number | null
+    ) => {
+        if (!isEditing) return;
+        setImageAnchorEl(event.currentTarget);
+        setActiveTaskId(id);
     };
+    const closeImageMenu = () => {
+        setImageAnchorEl(null);
+        setActiveTaskId(null);
+    };
+
+   const handleAddPhoto = (taskId: number | null) => {
+    if (fileInputRef.current) {
+        delete fileInputRef.current.dataset.taskId;
+        fileInputRef.current.dataset.taskId = taskId?.toString() || 'new';
+        fileInputRef.current.click();
+    }
+    closeImageMenu();
+};
+
+const handleChangePhoto = (taskId: number | null) => {
+    if (fileInputRef.current) {
+        delete fileInputRef.current.dataset.taskId;
+        fileInputRef.current.dataset.taskId = taskId?.toString() || 'new';
+        fileInputRef.current.click();
+    }
+    closeImageMenu();
+};
+
+    const handleRemovePhoto = (taskId: number | null) => {
+        if (taskId !== null) {
+            const task = todo?.tasks.find(t => t.id === taskId);
+            if (task) {
+                const updatedTask = { ...task, image: undefined };
+                setTodo((prev) =>
+                    prev
+                        ? {
+                            ...prev,
+                            tasks: prev.tasks.map((t) =>
+                                t.id === taskId ? updatedTask : t
+                            ),
+                        }
+                        : null
+                );
+                fetch(`http://localhost:8080/api/v1/tasks/${taskId}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedTask),
+                }).catch(error => console.error("Error removing photo:", error));
+            }
+        } else {
+            // New task
+            setNewTaskImage(null);
+        }
+        closeImageMenu();
+    };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+        const reader = new FileReader();
+        
+        // Read the task ID from the dataset
+        const taskIdStr = event.target.dataset.taskId;
+        const taskId = taskIdStr === 'new' ? null : (taskIdStr ? parseInt(taskIdStr) : null);
+        
+        reader.onload = () => {
+            const imageUrl = reader.result as string;
+            
+            if (taskId !== null) {
+                // Existing task
+                const task = todo?.tasks.find(t => t.id === taskId);
+                if (task) {
+                    const updatedTask = { ...task, image: imageUrl };
+                    setTodo((prev) =>
+                        prev
+                            ? {
+                                ...prev,
+                                tasks: prev.tasks.map((t) =>
+                                    t.id === taskId ? updatedTask : t
+                                ),
+                            }
+                            : null
+                    );
+                    // API call
+                    fetch(`http://localhost:8080/api/v1/tasks/${taskId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(updatedTask),
+                    }).catch(error => console.error("Error updating task image:", error));
+                }
+            } else {
+                // New task (the + icon area)
+                setNewTaskImage(imageUrl);
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+    event.target.value = ''; // Reset input
+    
+    // Clear the dataset after reading
+    if (event.target) {
+        delete event.target.dataset.taskId;
+    }
+};
 
     const addNewTask = async () => {
         if (newTaskDescription.trim() === "") return;
         if (todo && todo.id) {
+            const taskData = {
+                description: newTaskDescription,
+                status: "PENDING",
+                image: newTaskImage
+            };
+
+            console.log("Sending task data:", {
+                ...taskData,
+                image: newTaskImage ? `Base64 present (length: ${newTaskImage.length})` : "No image"
+            });
+
             try {
                 const response = await fetch(`http://localhost:8080/api/v1/tasks/todo/${todo.id}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ description: newTaskDescription, status: "PENDING" }),
+                    body: JSON.stringify(taskData),
                 });
+
+                console.log("Response status:", response.status);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Error response:", errorText);
+                    throw new Error(`Failed to add task: ${errorText}`);
+                }
+
                 const newTask = await response.json();
+                console.log("Created task:", newTask);
+
                 setTodo((prev) => prev ? { ...prev, tasks: [...prev.tasks, newTask] } : null);
                 setNewTaskDescription("");
+                setNewTaskImage(null);
             } catch (error) {
                 console.error("Error adding task:", error);
+                alert("Failed to add task: " + error.message);
             }
         } else {
-            const newTask: TaskType = { id: nextId, description: newTaskDescription, status: "PENDING" };
+            const newTask: TaskType = { id: nextId, description: newTaskDescription, status: "PENDING", image: newTaskImage || undefined };
             setTodo((prev) => prev ? { ...prev, tasks: [...prev.tasks, newTask] } : { title: editTitle, status: "PENDING", tasks: [newTask] });
             setNextId(nextId + 1);
             setNewTaskDescription("");
+            setNewTaskImage(null);
         }
     };
 
@@ -278,8 +412,12 @@ export const TodoItem: React.FC = () => {
                 {isEditing ? (
                     <>
                         <Box sx={styles.goalItem}>
-                            <Box sx={styles.leftPart}>
-                                <ImageIcon sx={styles.defaultIcon} />
+                            <Box
+                                sx={styles.leftPart}
+                                style={newTaskImage ? { backgroundImage: `url(${newTaskImage})` } : {}}
+                                onClick={(e) => handleImageClick(e, null)}
+                            >
+                                {!newTaskImage && <ImageIcon sx={styles.defaultIcon} />}
                             </Box>
                             <Box sx={{ ...styles.rightPart, backgroundColor: "#D2C9CA", justifyContent: "space-between" }}>
                                 <TextField
@@ -299,12 +437,10 @@ export const TodoItem: React.FC = () => {
                         </Box>
                         {todo && todo.tasks.map((task) => (
                             <Box key={task.id} sx={styles.goalItem}>
-
-
                                 <Box
                                     sx={styles.leftPart}
                                     style={task.image ? { backgroundImage: `url(${task.image})` } : {}}
-                                    onClick={() => handleImageClick(task.id)}
+                                    onClick={(e) => handleImageClick(e, task.id)}
                                 >
                                     {!task.image && <ImageIcon sx={styles.defaultIcon} />}
                                 </Box>
@@ -360,10 +496,49 @@ export const TodoItem: React.FC = () => {
                     ))
                 ) : (
                     <Box sx={styles.noTask}>
-                        <Typography sx={styles.title}>There are no task yet. Edit to start.</Typography>
-                    </Box>
+                        <Typography sx={styles.title}>
+                            There are no task yet.{" "}
+                            <Box
+                                component="span"
+                                sx={styles.editLink}
+                                onClick={handleEdit}
+                            >
+                                Edit
+                            </Box>{" "}
+                            to start.
+                        </Typography>                    </Box>
                 )}
             </Box>
+            <Menu
+                anchorEl={imageAnchorEl}
+                open={isImageMenuOpen}
+                onClose={closeImageMenu}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                transformOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                {(activeTaskId !== null && todo?.tasks.find((t) => t.id === activeTaskId)?.image) ||
+                    (activeTaskId === null && newTaskImage) ? (
+                    <>
+                        <MenuItem onClick={() => handleChangePhoto(activeTaskId)}>
+                            Change Photo
+                        </MenuItem>
+                        <MenuItem onClick={() => handleRemovePhoto(activeTaskId)}>
+                            Remove Photo
+                        </MenuItem>
+                    </>
+                ) : (
+                    <MenuItem onClick={() => handleAddPhoto(activeTaskId)}>
+                        Add Photo
+                    </MenuItem>
+                )}
+            </Menu>
+            <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                accept="image/*"
+                onChange={handleFileChange}
+            />
 
             <Box sx={styles.footer}>
                 {hasDoneTasks && !isEditing && (
