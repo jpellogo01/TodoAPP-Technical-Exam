@@ -62,7 +62,9 @@ The API will be available at: http://localhost:8080
 
 1. Navigate to Project
 
-cd Todo-Frontend/my-react-app 2. Install & Launch
+cd Todo-Frontend/my-react-app
+
+2. Install & Launch
 
 # Install dependencies
 
