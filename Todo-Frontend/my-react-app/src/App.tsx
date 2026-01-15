@@ -29,7 +29,7 @@ const App: React.FC = () => {
   if (checkingSession) return <p>Checking session...</p>;
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+    <div style={{ display: "flex", justifyContent: "center", padding: "0" }}>
       {isLoggedIn ? (
         <TodoApp />
       ) : (
