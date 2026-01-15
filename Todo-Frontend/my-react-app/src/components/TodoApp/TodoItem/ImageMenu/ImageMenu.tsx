@@ -2,7 +2,8 @@ import React from 'react';
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import type { TodoType } from "../../../../types";
-import { styles } from './styles';
+import { styles } from '../ImageMenu/styles';
+import { Height } from '@mui/icons-material';
 
 interface ImageMenuProps {
   anchorEl: HTMLElement | null;
@@ -28,8 +29,8 @@ export const ImageMenu: React.FC<ImageMenuProps> = ({
   onChangePhoto,
   onRemovePhoto,
 }) => {
-  const hasImage = activeTaskId !== null 
-    ? todo?.tasks.find(t => t.id === activeTaskId)?.image 
+  const hasImage = activeTaskId !== null
+    ? todo?.tasks.find(t => t.id === activeTaskId)?.image
     : newTaskImage;
 
   return (
@@ -39,6 +40,14 @@ export const ImageMenu: React.FC<ImageMenuProps> = ({
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       transformOrigin={{ vertical: "top", horizontal: "center" }}
+      PaperProps={{
+        sx: {
+          borderRadius: "16px", 
+          overflow: "hidden",
+          minHeight: '40px',
+          padding: '1px',
+        },
+      }}
     >
       {hasImage ? (
         <>

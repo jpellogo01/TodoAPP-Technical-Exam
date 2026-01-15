@@ -10,9 +10,9 @@ export const styles: Record<string, SxProps<Theme>> = {
   },
 
   removeBtn: {
-    borderColor: "#1a237e",
+    borderColor: "#0A1F56",
     borderRadius: "40px",
-    color: "#1a237e",
+    color: "#0A1F56",
     textTransform: 'none',
     fontSize: 14,
     px: 2,
@@ -39,9 +39,9 @@ export const styles: Record<string, SxProps<Theme>> = {
   },
 
   cancelBtn: {
-    borderColor: "#f44336",
+    borderColor: "#0A1F56",
     borderRadius: "40px",
-    color: "#f44336",
+    color: "#0A1F56",
     textTransform: 'none',
     fontSize: 14,
     px: 3,

@@ -14,7 +14,7 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-  arrayMove, 
+  arrayMove,
 } from '@dnd-kit/sortable';
 // import type { DragEndEvent } from '@dnd-kit/core';
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -129,13 +129,21 @@ export const TaskList: React.FC<TaskListProps> = ({
             sx={{
               ...styles.iconButton,
               color: task.status === "DONE" ? "#0A1F56" : "#a1866f",
+              backgroundColor: task.status === "DONE" ? "white" : "#a1866f",
+              borderColor: task.status === "DONE" ? "white" : "#a1866f",
+              '&:focus': { outline: 'none' },
+              '&:focus-visible': { outline: 'none' },
+
             }}
           >
             {task.status === "DONE" ? <CheckCircleIcon /> : <RadioButtonUncheckedIcon />}
           </IconButton>
 
           <Box
-            sx={styles.leftPart}
+            sx={{
+              ...styles.leftPart,
+              backgroundColor: task.status === 'DONE' ? '#0A1F56' : '#B6A08B',
+            }}
             style={task.image ? { backgroundImage: `url(${task.image})` } : {}}
           >
             {!task.image && <ImageIcon sx={styles.defaultIcon} />}
