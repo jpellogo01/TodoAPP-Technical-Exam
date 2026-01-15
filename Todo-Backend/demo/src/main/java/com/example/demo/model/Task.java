@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tasks")
 public class Task {
 
     @Id
@@ -16,8 +17,11 @@ public class Task {
     private TaskStatus status;
 
     @Lob
-    @Column(columnDefinition = "TEXT")
-    private String image; 
+    @Column(columnDefinition = "LONGTEXT")
+    private String image;
+
+    @Column(name = "task_order")
+    private Integer taskOrder;
 
     @ManyToOne
     @JoinColumn(name = "todo_id")
@@ -26,12 +30,12 @@ public class Task {
 
     public Task() {}
 
-    public Task(String description, TaskStatus status, String image) {
+    public Task(String description, TaskStatus status, String image, Integer taskOrder) {
         this.description = description;
         this.status = status;
         this.image = image;
+        this.taskOrder = taskOrder;
     }
-
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -44,6 +48,9 @@ public class Task {
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    public Integer getTaskOrder() { return taskOrder; }
+    public void setTaskOrder(Integer taskOrder) { this.taskOrder = taskOrder; }
 
     public Todo getTodo() { return todo; }
     public void setTodo(Todo todo) { this.todo = todo; }

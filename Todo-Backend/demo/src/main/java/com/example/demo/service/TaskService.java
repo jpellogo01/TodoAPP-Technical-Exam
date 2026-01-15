@@ -27,15 +27,21 @@ public class TaskService {
     }
 
     public Task addTaskToTodo(Long todoId, Task task) {
+        System.out.println("Adding task with image: " + (task.getImage() != null ? "Yes, length: " + task.getImage().length() : "No"));
+
         Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
         task.setTodo(todo);
-//        todo.getTasks().add(task);
+
+        Task savedTask = taskRepository.save(task);
+        System.out.println("Task saved with ID: " + savedTask.getId() + ", image saved: " + (savedTask.getImage() != null));
+
+        todo.getTasks().add(savedTask);
         todoRepository.save(todo);
-        return task;
+
+        return savedTask;
     }
 
-    // Update a task
     public Task updateTask(Long taskId, Task taskDetails) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
