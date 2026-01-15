@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box, IconButton, TextField, Typography } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import OpenWithOutlinedIcon from '@mui/icons-material/OpenWithOutlined';
+
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import ImageIcon from "@mui/icons-material/Image";
@@ -49,7 +50,8 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
             {...listeners}
             sx={styles.dragIcon}
           >
-            <DragIndicatorIcon />
+            <OpenWithOutlinedIcon sx={{ fontSize: '18px', color: 'white' }}  />
+
           </IconButton>
 
           <Box
@@ -75,8 +77,7 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
             onClick={() => onDeleteTask(task.id)}
             sx={styles.deleteIcon}
           >
-            <DeleteIcon />
-          </IconButton>
+            <DeleteOutlinedIcon sx={{ fontSize: '18px', color: 'white' }} />          </IconButton>
         </>
       ) : (
         <>
