@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Box, Typography, IconButton } from "@mui/material";
 import type { TodoType, TaskType } from "../../../../types";
 import { SortableTaskItem } from "../SortableTaskItem";
@@ -9,24 +9,26 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
   arrayMove,
-} from '@dnd-kit/sortable';
-// import type { DragEndEvent } from '@dnd-kit/core';
+} from "@dnd-kit/sortable";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import ImageIcon from "@mui/icons-material/Image";
-import { styles } from '../TaskList/styles';
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import { styles } from "../TaskList/styles";
 
 interface TaskListProps {
   todo: TodoType | null;
   isEditing: boolean;
   onToggleDone: (id: number) => void;
-  onImageClick: (event: React.MouseEvent<HTMLElement>, id: number | null) => void;
+  onImageClick: (
+    event: React.MouseEvent<HTMLElement>,
+    id: number | null
+  ) => void;
   onTaskDescriptionChange: (id: number, value: string) => void;
   onDeleteTask: (id: number) => void;
   onDragEnd: (reorderedTasks: TaskType[]) => void;
@@ -65,16 +67,17 @@ export const TaskList: React.FC<TaskListProps> = ({
           const { active, over } = event;
           if (!todo || !over || active.id === over.id) return;
 
-          const oldIndex = todo.tasks.findIndex(task => task.id === active.id);
-          const newIndex = todo.tasks.findIndex(task => task.id === over.id);
+          const oldIndex = todo.tasks.findIndex(
+            (task) => task.id === active.id
+          );
+          const newIndex = todo.tasks.findIndex((task) => task.id === over.id);
 
           const reorderedTasks = arrayMove(todo.tasks, oldIndex, newIndex);
           onDragEnd(reorderedTasks);
         }}
       >
-
         <SortableContext
-          items={todo?.tasks.map(task => task.id) || []}
+          items={todo?.tasks.map((task) => task.id) || []}
           strategy={verticalListSortingStrategy}
         >
           <Box sx={styles.container}>
@@ -106,8 +109,9 @@ export const TaskList: React.FC<TaskListProps> = ({
             onClick={handleEditClick}
             role="button"
             tabIndex={0}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
+            onKeyDown={(e: React.KeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
                 handleEditClick();
               }
             }}
@@ -131,22 +135,25 @@ export const TaskList: React.FC<TaskListProps> = ({
               color: task.status === "DONE" ? "#0A1F56" : "#a1866f",
               backgroundColor: task.status === "DONE" ? "white" : "#D2C9CA",
               borderColor: task.status === "DONE" ? "white" : "#a1866f",
-              '&:focus': { outline: 'none' },
-              '&:focus-visible': { outline: 'none' },
-
+              "&:focus": { outline: "none" },
+              "&:focus-visible": { outline: "none" },
             }}
           >
-            {task.status === "DONE" ? <CheckCircleIcon /> : <RadioButtonUncheckedIcon />}
+            {task.status === "DONE" ? (
+              <CheckCircleIcon />
+            ) : (
+              <RadioButtonUncheckedIcon />
+            )}
           </IconButton>
 
           <Box
             sx={{
               ...styles.leftPart,
-              backgroundColor: task.status === 'DONE' ? '#0A1F56' : '#B6A08B',
+              backgroundColor: task.status === "DONE" ? "#0A1F56" : "#B6A08B",
             }}
             style={task.image ? { backgroundImage: `url(${task.image})` } : {}}
           >
-            {!task.image && <ImageIcon sx={styles.defaultIcon} />}
+            {!task.image && <ImageOutlinedIcon sx={styles.defaultIcon} />}
           </Box>
 
           <Box

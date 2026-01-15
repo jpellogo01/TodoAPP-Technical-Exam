@@ -9,7 +9,7 @@ export const styles: Record<string, SxProps<Theme>> = {
 
   goalItem: {
     display: "flex",
-    height: 70,
+    height: 75,
     position: "relative",
   },
 
@@ -30,7 +30,7 @@ export const styles: Record<string, SxProps<Theme>> = {
   },
 
   leftPart: {
-    width: "15%",
+    width: "18%",
     borderRadius: "30px 0 0 30px",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -41,7 +41,7 @@ export const styles: Record<string, SxProps<Theme>> = {
 
   defaultIcon: {
     fontSize: 30,
-    color: "#a1866f",
+    color: "#FFFFFF",
   },
 
   rightPart: {
@@ -54,7 +54,7 @@ export const styles: Record<string, SxProps<Theme>> = {
 
   title: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
 
   noTask: {

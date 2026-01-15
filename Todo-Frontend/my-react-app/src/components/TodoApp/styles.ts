@@ -14,5 +14,5 @@ export const styles: Record<string, SxProps<Theme>> = {
   content: {
     position: "relative",
     zIndex: 1,
-  }
+  },
 };

@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import type { TodoType } from "../../../../types";
-import { styles } from '../ImageMenu/styles';
-import { Height } from '@mui/icons-material';
+import { styles } from "../ImageMenu/styles";
 
 interface ImageMenuProps {
   anchorEl: HTMLElement | null;
@@ -12,7 +11,7 @@ interface ImageMenuProps {
   activeTaskId: number | null;
   todo: TodoType | null;
   newTaskImage: string | null;
-  fileInputRef: React.RefObject<HTMLInputElement>;
+  // fileInputRef: React.RefObject<HTMLInputElement | null>;
   onAddPhoto: () => void;
   onChangePhoto: () => void;
   onRemovePhoto: () => void;
@@ -29,8 +28,8 @@ export const ImageMenu: React.FC<ImageMenuProps> = ({
   onChangePhoto,
   onRemovePhoto,
 }) => {
-  const hasImage = activeTaskId !== null
-    ? todo?.tasks.find(t => t.id === activeTaskId)?.image
+  const hasImage = activeTaskId
+    ? todo?.tasks.find((t) => t.id === activeTaskId)?.image
     : newTaskImage;
 
   return (
@@ -42,10 +41,10 @@ export const ImageMenu: React.FC<ImageMenuProps> = ({
       transformOrigin={{ vertical: "top", horizontal: "center" }}
       PaperProps={{
         sx: {
-          borderRadius: "16px", 
+          borderRadius: "16px",
           overflow: "hidden",
-          minHeight: '40px',
-          padding: '1px',
+          minHeight: "40px",
+          padding: "1px",
         },
       }}
     >

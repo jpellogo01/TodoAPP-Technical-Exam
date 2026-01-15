@@ -1,21 +1,24 @@
-import React from 'react';
+import React from "react";
 import { Box, IconButton, TextField, Typography } from "@mui/material";
-import OpenWithOutlinedIcon from '@mui/icons-material/OpenWithOutlined';
+import OpenWithOutlinedIcon from "@mui/icons-material/OpenWithOutlined";
 
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import ImageIcon from "@mui/icons-material/Image";
 import type { TaskType } from "../../../../types";
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { styles } from '../SortableTaskItem/styles';
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { styles } from "../SortableTaskItem/styles";
 
 interface SortableTaskItemProps {
   task: TaskType;
   isEditing: boolean;
   onToggleDone: (id: number) => void;
-  onImageClick: (event: React.MouseEvent<HTMLElement>, id: number | null) => void;
+  onImageClick: (
+    event: React.MouseEvent<HTMLElement>,
+    id: number | null
+  ) => void;
   onTaskDescriptionChange: (id: number, value: string) => void;
   onDeleteTask: (id: number) => void;
 }
@@ -28,19 +31,18 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
   onTaskDescriptionChange,
   onDeleteTask,
 }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id: task.id });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: task.id });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Transform.toString({
+      x: 0,
+      y: transform?.y ?? 0,
+      scaleX: 1,
+      scaleY: 1,
+    }),
     transition,
   };
-
   return (
     <Box ref={setNodeRef} style={style} sx={styles.goalItem}>
       {isEditing ? (
@@ -49,11 +51,9 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
             {...attributes}
             {...listeners}
             sx={styles.dragIcon}
-            disableFocusRipple={true}  
-
+            disableFocusRipple={true}
           >
-            <OpenWithOutlinedIcon sx={{ fontSize: '18px', color: 'white' }} />
-
+            <OpenWithOutlinedIcon sx={{ fontSize: "18px", color: "white" }} />
           </IconButton>
 
           <Box
@@ -64,7 +64,16 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
             {!task.image && <ImageIcon sx={styles.defaultIcon} />}
           </Box>
 
-          <Box sx={{ ...styles.rightPart, backgroundColor: "#D2C9CA" }}>
+          <Box
+            sx={{
+              ...styles.rightPart,
+              backgroundColor: "#D2C9CA",
+              transition: "background-color 0.2s ease",
+              "&:focus-within": {
+                backgroundColor: "#FFFFFF",
+              },
+            }}
+          >
             <TextField
               value={task.description}
               onChange={(e) => onTaskDescriptionChange(task.id, e.target.value)}
@@ -78,7 +87,8 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
             onClick={() => onDeleteTask(task.id)}
             sx={styles.deleteIcon}
           >
-            <DeleteOutlinedIcon sx={{ fontSize: '18px', color: 'white' }} />          </IconButton>
+            <DeleteOutlinedIcon sx={{ fontSize: "18px", color: "white" }} />{" "}
+          </IconButton>
         </>
       ) : (
         <>
@@ -89,7 +99,11 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
               color: task.status === "DONE" ? "#0A1F56" : "#a1866f",
             }}
           >
-            {task.status === "DONE" ? <CheckCircleIcon /> : <RadioButtonUncheckedIcon />}
+            {task.status === "DONE" ? (
+              <CheckCircleIcon />
+            ) : (
+              <RadioButtonUncheckedIcon />
+            )}
           </IconButton>
 
           <Box

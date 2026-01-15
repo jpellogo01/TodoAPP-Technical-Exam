@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 import { Box, IconButton, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ImageIcon from "@mui/icons-material/Image";
-import { styles } from '../NewTaskInput/styles';
+import { styles } from "../NewTaskInput/styles";
 
 interface NewTaskInputProps {
   newTaskDescription: string;
   newTaskImage: string | null;
   onDescriptionChange: (value: string) => void;
-  onImageClick: (event: React.MouseEvent<HTMLElement>, id: number | null) => void;
+  onImageClick: (
+    event: React.MouseEvent<HTMLElement>,
+    id: number | null
+  ) => void;
   onAddTask: () => void;
 }
 
@@ -28,7 +31,15 @@ export const NewTaskInput: React.FC<NewTaskInputProps> = ({
       >
         {!newTaskImage && <ImageIcon sx={styles.defaultIcon} />}
       </Box>
-      <Box sx={styles.rightPart}>
+      <Box
+        sx={{
+          ...styles.rightPart,
+          transition: "background-color 0.2s ease",
+          "&:focus-within": {
+            backgroundColor: "#FFFFFF",
+          },
+        }}
+      >
         <TextField
           value={newTaskDescription}
           onChange={(e) => onDescriptionChange(e.target.value)}
@@ -36,10 +47,7 @@ export const NewTaskInput: React.FC<NewTaskInputProps> = ({
           variant="standard"
           placeholder="Enter new task here."
         />
-        <IconButton
-          onClick={onAddTask}
-          sx={styles.addIcon}
-        >
+        <IconButton onClick={onAddTask} sx={styles.addIcon}>
           <AddIcon />
         </IconButton>
       </Box>

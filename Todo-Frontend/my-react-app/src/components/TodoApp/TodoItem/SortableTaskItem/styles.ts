@@ -3,7 +3,7 @@ import type { SxProps, Theme } from "@mui/material";
 export const styles: Record<string, SxProps<Theme>> = {
   goalItem: {
     display: "flex",
-    height: 70,
+    height: 75,
     position: "relative",
   },
 
@@ -54,28 +54,28 @@ export const styles: Record<string, SxProps<Theme>> = {
     zIndex: 1,
     color: "#9D8065",
     cursor: "grab",
-    '&:focus': { outline: 'none' },
-    '&:focus-visible': { outline: 'none' },
+    "&:focus": { outline: "none" },
+    "&:focus-visible": { outline: "none" },
     "&:active": {
       cursor: "grabbing",
-    }
+    },
   },
 
   leftPart: {
-    width: "15%",
+    width: "18%",
     borderRadius: "30px 0 0 30px",
     backgroundSize: "cover",
     backgroundPosition: "center",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#B6A08B",
     cursor: "pointer",
   },
 
   defaultIcon: {
     fontSize: 30,
-    color: "#a1866f",
+    color: "#FFFFFF",
   },
 
   rightPart: {
@@ -88,7 +88,7 @@ export const styles: Record<string, SxProps<Theme>> = {
 
   title: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
 
   titleInput: {
@@ -101,14 +101,14 @@ export const styles: Record<string, SxProps<Theme>> = {
     "& .MuiInput-input": {
       padding: 0,
     },
-    '& .MuiInput-underline:before': {
-      borderBottom: '2px solid #B69D87',
+    "& .MuiInput-underline:before": {
+      borderBottom: "2px solid #B69D87",
     },
-    '& .MuiInput-underline:after': {
-      borderBottom: '2px solid #B69D87', 
+    "& .MuiInput-underline:after": {
+      borderBottom: "2px solid #B69D87",
     },
-    '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-      borderBottom: '2px solid #B69D87', 
+    "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+      borderBottom: "2px solid #B69D87",
     },
   },
 };
