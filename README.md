@@ -3,6 +3,7 @@ TodoAPP: Cadet Frontend Developer Assesment
 Tech Stack
 
 Backend:
+<<<<<<< HEAD
 Java 17 & Spring Boot 3.x
 Spring Data JPA (Persistence layer)
 MySQL / H2 (Database options)
@@ -14,21 +15,46 @@ React 18 (UI Library)
 TypeScript (Type safety)
 Vite (Build tool & Dev server)
 Material UI (MUI) (Component library)
+=======
+Java 17 & Spring Boot 3.x,
+Spring Data JPA (Persistence layer),
+MySQL / H2 (Database options),
+Lombok (Boilerplate reduction),
+Maven (Build tool)
+
+Frontend:
+React 18 (UI Library),
+TypeScript (Type safety),
+Vite (Build tool & Dev server),
+Material UI (MUI) (Component library),
+>>>>>>> 8910822b50ca6715538a4d862ceba020f6e0fab5
 Axios (HTTP Client)
 
 Prerequisites:
 Ensure you have the following installed:
+<<<<<<< HEAD
 Java JDK 17
 Node.js 18+ & npm
 Maven (Optional if using IntelliJ)
 MySQL (Optional, defaults to H2 in-memory)
+=======
+Java JDK 17,
+Node.js 18+ & npm,
+Maven (Optional if using IntelliJ),
+MySQL (Optional, defaults to H2 in-memory),
+>>>>>>> 8910822b50ca6715538a4d862ceba020f6e0fab5
 
 Backend Setup (Spring Boot)
 
 1. Clone and Navigate
    git clone https://github.com/jpellogo01/TodoAPP-Technical-Exam.git
    cd Todo-Backend
+<<<<<<< HEAD
 2. Database Configuration
+=======
+   
+3. Database Configuration
+>>>>>>> 8910822b50ca6715538a4d862ceba020f6e0fab5
    By default, the app is configured for H2 (In-Memory). If you wish to use MySQL, update src/main/resources/application.properties:
 
 Properties
@@ -36,25 +62,59 @@ Properties
 # Switch to MySQL
 
 spring.datasource.url=jdbc:mysql://localhost:3306/todo_db
+<<<<<<< HEAD
 spring.datasource.username=YOUR_USERNAME
 spring.datasource.password=YOUR_PASSWORD
+=======
+
+spring.datasource.username=YOUR_USERNAME
+
+spring.datasource.password=YOUR_PASSWORD
+
+>>>>>>> 8910822b50ca6715538a4d862ceba020f6e0fab5
 spring.jpa.hibernate.ddl-auto=update
+Note: If using MySQL, manually create the database todo_db before starting the app.
+
+<<<<<<< HEAD
+3. Run the Application
+   IntelliJ IDEA: Open the folder, wait for Maven indexing, and run TodoBackendApplication.java.
+
+Terminal:
+mvn clean install
+=======
 Note: If using MySQL, manually create the database todo_db before starting the app.
 
 3. Run the Application
    IntelliJ IDEA: Open the folder, wait for Maven indexing, and run TodoBackendApplication.java.
 
 Terminal:
+
 mvn clean install
+
+>>>>>>> 8910822b50ca6715538a4d862ceba020f6e0fab5
 mvn spring-boot:run
 The API will be available at: http://localhost:8080
 
+<<<<<<< HEAD
 💻 Frontend Setup (React + TS)
 
 1. Navigate to Project
 
 cd Todo-Frontend/my-react-app 2. Install & Launch
 
+=======
+The API will be available at: http://localhost:8080
+
+
+💻 Frontend Setup (React + TS)
+
+1. Navigate to Project
+
+cd Todo-Frontend/my-react-app
+
+2. Install & Launch
+
+>>>>>>> 8910822b50ca6715538a4d862ceba020f6e0fab5
 # Install dependencies
 
 npm install
