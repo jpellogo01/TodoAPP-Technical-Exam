@@ -1,45 +1,6 @@
 import type { SxProps, Theme } from "@mui/material";
 
 export const styles: Record<string, SxProps<Theme>> = {
-  container: { p: 4, borderRadius: 4, width: 450 },
-
-  header: {
-    ml: "20px",
-    color: "#1a237e",
-    fontSize: "30px",
-    fontWeight: 500,
-    fontFamily: "'Crimson Text', serif",
-  },
-
-  headerInput: {
-    ml: "20px",
-    fontSize: "30px",
-    fontWeight: 500,
-    fontFamily: "'Crimson Text', serif",
-    "& .MuiInput-root": {
-      color: "#1a237e",
-    },
-  },
-
-  listContainer: {
-    minHeight: "400px",
-    p: 2,
-    display: "flex",
-    flexDirection: "column",
-    gap: 2,
-    mb: 3,
-  },
-
-  noTask: {
-    p: 3,
-    display: "flex",
-    flexDirection: "column",
-    gap: 2,
-    mb: 3,
-    border: "2px solid gray",
-    borderRadius: "50px",
-  },
-
   goalItem: {
     display: "flex",
     height: 70,
@@ -78,17 +39,24 @@ export const styles: Record<string, SxProps<Theme>> = {
     color: "#9D8065",
   },
 
-  addIcon: {
+  dragIcon: {
     width: 20,
     height: 20,
-    right: "-18px",
     borderRadius: "50%",
-    border: "2px solid #0A1F56",
-    backgroundColor: "#0A1F56",
+    backgroundColor: "transparent",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "white",
+    position: "absolute",
+    right: "50px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    zIndex: 1,
+    color: "#9D8065",
+    cursor: "grab",
+    "&:active": {
+      cursor: "grabbing",
+    }
   },
 
   leftPart: {
@@ -118,16 +86,9 @@ export const styles: Record<string, SxProps<Theme>> = {
 
   title: {
     fontSize: 16,
+    color: '#333',
   },
- editLink: {
-    textDecoration: "underline",
-    cursor: "pointer",
-    color: "#B6A08B",
-    fontWeight: 500,
-    "&:hover": {
-      opacity: 0.8,
-    },
-  },
+
   titleInput: {
     fontSize: 16,
     maxWidth: 300,
@@ -136,39 +97,8 @@ export const styles: Record<string, SxProps<Theme>> = {
     "& .MuiInput-root": {
       fontSize: 16,
     },
-  },
-
-  footer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    gap: 1,
-    paddingTop: "5px",
-    borderTop: "solid 1px #B69D87",
-  },
-
-  removeBtn: {
-    borderColor: "#1a237e",
-    borderRadius: "40px",
-    color: "#1a237e",
-  },
-
-  editBtn: {
-    bgcolor: "#B6A08B",
-    borderRadius: "40px",
-    color: "#fff",
-    "&:hover": { bgcolor: "#B6A08B" },
-  },
-
-  saveBtn: {
-    bgcolor: "#4CAF50",
-    borderRadius: "40px",
-    color: "#fff",
-    "&:hover": { bgcolor: "#45a049" },
-  },
-
-  cancelBtn: {
-    borderColor: "#f44336",
-    borderRadius: "40px",
-    color: "#f44336",
+    "& .MuiInput-input": {
+      padding: 0,
+    },
   },
 };

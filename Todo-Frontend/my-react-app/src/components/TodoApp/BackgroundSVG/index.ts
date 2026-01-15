@@ -1,0 +1,1 @@
+export { BackgroundSVG } from './BackgroundSVG';
