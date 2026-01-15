@@ -14,10 +14,10 @@ export const styles: Record<string, SxProps<Theme>> = {
   },
 
   iconButton: {
-    width: 20,
-    height: 20,
+    width: 23,
+    height: 23,
     borderRadius: "50%",
-    border: "6px solid #B6A08B",
+    border: "4px solid #B6A08B",
     backgroundColor: "#D2C9CA",
     display: "flex",
     alignItems: "center",
@@ -64,7 +64,6 @@ export const styles: Record<string, SxProps<Theme>> = {
     gap: 2,
     border: "2px solid gray",
     borderRadius: "50px",
-    textAlign: 'center',
   },
 
   editLink: {

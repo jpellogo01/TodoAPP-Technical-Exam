@@ -129,7 +129,7 @@ export const TaskList: React.FC<TaskListProps> = ({
             sx={{
               ...styles.iconButton,
               color: task.status === "DONE" ? "#0A1F56" : "#a1866f",
-              backgroundColor: task.status === "DONE" ? "white" : "#a1866f",
+              backgroundColor: task.status === "DONE" ? "white" : "#D2C9CA",
               borderColor: task.status === "DONE" ? "white" : "#a1866f",
               '&:focus': { outline: 'none' },
               '&:focus-visible': { outline: 'none' },

@@ -35,7 +35,6 @@ export const NewTaskInput: React.FC<NewTaskInputProps> = ({
           sx={styles.titleInput}
           variant="standard"
           placeholder="Enter new task here."
-          InputProps={{ disableUnderline: true }}
         />
         <IconButton
           onClick={onAddTask}

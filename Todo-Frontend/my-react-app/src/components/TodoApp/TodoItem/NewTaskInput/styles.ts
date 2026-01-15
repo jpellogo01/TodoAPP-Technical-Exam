@@ -45,6 +45,15 @@ export const styles: Record<string, SxProps<Theme>> = {
     "& .MuiInput-input": {
       padding: 0,
     },
+    '& .MuiInput-underline:before': {
+      borderBottom: '2px solid #B69D87',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottom: '2px solid #B69D87',
+    },
+    '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+      borderBottom: '2px solid #B69D87',
+    },
   },
 
   addIcon: {

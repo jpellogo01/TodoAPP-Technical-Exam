@@ -49,8 +49,10 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
             {...attributes}
             {...listeners}
             sx={styles.dragIcon}
+            disableFocusRipple={true}  
+
           >
-            <OpenWithOutlinedIcon sx={{ fontSize: '18px', color: 'white' }}  />
+            <OpenWithOutlinedIcon sx={{ fontSize: '18px', color: 'white' }} />
 
           </IconButton>
 
@@ -70,7 +72,6 @@ export const SortableTaskItem: React.FC<SortableTaskItemProps> = ({
               variant="standard"
               fullWidth
               placeholder="Enter new task here."
-              InputProps={{ disableUnderline: true }}
             />
           </Box>
           <IconButton
