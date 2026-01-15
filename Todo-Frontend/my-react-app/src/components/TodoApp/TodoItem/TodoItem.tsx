@@ -39,7 +39,7 @@ export const TodoItem: React.FC = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
         setTodo({
-          title: "Sample Todo",
+          title: "Run the backend",
           status: "PENDING",
           tasks: [
             { id: 1, description: "Sample Task 1", status: "DONE" },
