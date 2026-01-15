@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 TodoAPP Technical Exam – Full-Stack Todo Application
 
 This project is a full-stack Todo application using Spring Boot for the backend and React + TypeScript + Vite for the frontend.
@@ -99,6 +98,5 @@ Running the Full App
 Start the backend first (Spring Boot).
 Start the frontend (Vite).
 Navigate to the frontend URL in your browser and start using the app.
-=======
 
->>>>>>> b12b3d28af100148c89a4077769da33581da40d6
+
