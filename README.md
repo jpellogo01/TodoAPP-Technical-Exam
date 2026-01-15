@@ -50,9 +50,13 @@ Note: If using MySQL, manually create the database todo_db before starting the a
    IntelliJ IDEA: Open the folder, wait for Maven indexing, and run TodoBackendApplication.java.
 
 Terminal:
+
 mvn clean install
+
 mvn spring-boot:run
+
 The API will be available at: http://localhost:8080
+
 
 💻 Frontend Setup (React + TS)
 
