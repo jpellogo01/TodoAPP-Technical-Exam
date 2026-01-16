@@ -34,13 +34,13 @@ export const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
       const text = await res.text();
       setStatus(text);
 
-      if (text === "Login successful" || res.ok) {
+      if (res.ok && text === "Login successful") {
         onLoginSuccess();
       } else {
         setStatus("Login failed: Invalid credentials");
       }
     } catch (err) {
-      setStatus("Login failed: Network error");
+      setStatus("Login failed: Please Start the Backend");
       console.error(err);
     } finally {
       setLoading(false);
