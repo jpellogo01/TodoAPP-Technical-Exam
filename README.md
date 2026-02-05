@@ -1,3 +1,5 @@
+<img width="1448" height="784" alt="image" src="https://github.com/user-attachments/assets/29be9af3-caaf-448b-9d5b-2580ada48240" />
+
 TodoAPP: Cadet Frontend Developer Assesment
 
 Tech Stack
