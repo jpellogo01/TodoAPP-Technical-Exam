@@ -3,7 +3,6 @@ import type { TodoType, TaskType } from '../types';
 const API_BASE = 'http://localhost:8080/api/v1';
 
 export const apiService = {
-  // Todo operations
   fetchTodo: async (): Promise<TodoType | null> => {
     const response = await fetch(`${API_BASE}/todo`);
     const data: TodoType[] = await response.json();

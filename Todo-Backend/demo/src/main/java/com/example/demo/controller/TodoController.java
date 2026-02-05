@@ -35,10 +35,7 @@ public class TodoController {
         return todoService.createTodo(todo);
     }
 
-//    @PutMapping("/{id}")
-//    public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-//        return todoService.updateTodo(id, todo);
-//    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(
@@ -48,7 +45,6 @@ public class TodoController {
         Todo updatedTodo = todoService.updateTodo(id, todoRequest);
         return ResponseEntity.ok(updatedTodo);
     }
-
 
 
     @DeleteMapping("/{id}")
